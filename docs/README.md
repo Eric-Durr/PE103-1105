@@ -12,6 +12,9 @@
 
 ## Comandos npm del repositorio
 
+- npm run serve  `ejecuta el servidor si ha sido compilado`
+- npm run dev  `compila el código y ejecuta el servidor en modo watch`
+- npm run build  `compila el código fuente`
 - npm test  `ejecuta los test unitarios`
 - npm run test:watch `inicia la ejecución de los test unitarios de manera ininterrumpida`
 - npm run test:coverage `inicia la ejecución de los test junto con la cobertura de código`
