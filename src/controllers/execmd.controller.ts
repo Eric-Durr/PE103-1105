@@ -52,18 +52,26 @@ const commandPromise = (
     };
     reject(err);
   });
+  let fullMsg: string = '';
   child.stderr.on('data', (error) => {
-    const err: ErrJSON = {
-      errmsg: error.message,
-    };
-    reject(err);
+    fullMsg += error.toString();
   });
   child.stdout.on('data', (data) => {
-    const msg: OutputJSON = {
-      command,
-      output: data.toString(),
-    };
-    resolve(msg);
+    fullMsg += data.toString();
+  });
+  child.on('close', (code) => {
+    if (code) {
+      const err: ErrJSON = {
+        errmsg: fullMsg,
+      };
+      reject(err);
+    } else {
+      const msg: OutputJSON = {
+        command,
+        output: fullMsg,
+      };
+      resolve(msg);
+    }
   });
   // --------------
 });
@@ -87,7 +95,7 @@ export default {
           res.status(400).send(JSON.stringify(error));
         });
     } else {
-      res.status(400).send('comand or args are undefinded');
+      res.status(400).send('comand or args are undefinded. Try running the query with /execmd?command=linux command&args=command args');
     }
   },
 };

